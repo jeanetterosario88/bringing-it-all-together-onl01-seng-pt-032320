@@ -61,9 +61,10 @@ class Dog
          WHERE name = hash[:name]
          AND breed = hash[:breed]
          SQL
-          dog = DB[:conn].execute(sql, name, breed).flatten
+          dog = DB[:conn].execute(sql, name, breed)
           if !dog.empty?
-            thedog = self.new_from_db(row)
+            dogdata = dog[0]
+            thedog = self.new_from_db(dogdata)
             #Dog.new(id: dog[0], name: dog[1], breed: dog[2])
           else
             thedog = self.create(name: name, breed: breed)
